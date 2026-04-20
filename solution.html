@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solution</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #0f172a, #1e293b);
+    }
+  </style>
+</head>
+<body class="pt-10 text-white font-sans">
+      <!-- SOLUTION -->
+  <section class="max-w-6xl mx-auto px-6 mb-20">
+    <h2 class="text-3xl font-bold mb-6 text-green-400">💡 Notre solution</h2>
+
+    <div class="grid md:grid-cols-3 gap-6">
+
+      <div class="bg-white/10 p-6 rounded-2xl hover:scale-105 transition">
+        <h3 class="text-xl font-bold mb-2">🔒 Immuable</h3>
+        <p class="text-gray-300">
+          Chaque terrain est enregistré une seule fois sur la blockchain.
+        </p>
+      </div>
+
+      <div class="bg-white/10 p-6 rounded-2xl hover:scale-105 transition">
+        <h3 class="text-xl font-bold mb-2">👁️ Transparent</h3>
+        <p class="text-gray-300">
+          Tout citoyen peut vérifier le propriétaire d’un terrain.
+        </p>
+      </div>
+
+      <div class="bg-white/10 p-6 rounded-2xl hover:scale-105 transition">
+        <h3 class="text-xl font-bold mb-2">⚡ Instantané</h3>
+        <p class="text-gray-300">
+          Vérification rapide sans passer par des procédures longues.
+        </p>
+      </div>
+
+    </div>
+  </section>
+  <!-- SECTION BLOCKCHAIN EXPLIQUEE -->
+<section class="max-w-6xl mx-auto px-6 mb-20">
+
+  <h2 class="text-3xl font-bold text-green-400 mb-6 text-center">
+    🔗 Pourquoi la blockchain change tout ?
+  </h2>
+
+  <div class="grid md:grid-cols-2 gap-10 items-center">
+
+    <!-- TEXTE -->
+    <div>
+      <p class="text-gray-300 mb-4">
+        Aujourd’hui, les terrains sont enregistrés sur papier, ce qui permet
+        des manipulations et des fraudes.
+      </p>
+
+      <p class="text-gray-300 mb-4">
+        Avec <span class="text-green-400 font-bold">FoncierChain</span>,
+        chaque terrain est enregistré dans un système numérique sécurisé
+        appelé blockchain.
+      </p>
+
+      <p class="text-gray-300 mb-4">
+        Une fois une information enregistrée, elle ne peut plus être modifiée.
+        Cela empêche totalement les doubles ventes et protège les citoyens.
+      </p>
+
+      <div class="bg-green-500/10 p-4 rounded-xl border border-green-500">
+        ✔️ Impossible de modifier un terrain<br>
+        ✔️ Historique visible par tous<br>
+        ✔️ Sécurité maximale contre la fraude
+      </div>
+    </div>
+
+    <!-- VISUEL BLOCKCHAIN -->
+    <div class="flex flex-col items-center space-y-4">
+
+      <div class="bg-white/10 p-4 rounded-xl w-48 text-center">
+        Bloc #1<br>
+        <span class="text-gray-400 text-sm">Terrain enregistré</span>
+      </div>
+
+      <div class="text-green-400 text-2xl">⬇️</div>
+
+      <div class="bg-white/10 p-4 rounded-xl w-48 text-center">
+        Bloc #2<br>
+        <span class="text-gray-400 text-sm">Propriétaire validé</span>
+      </div>
+
+      <div class="text-green-400 text-2xl">⬇️</div>
+
+      <div class="bg-white/10 p-4 rounded-xl w-48 text-center">
+        Bloc #3<br>
+        <span class="text-gray-400 text-sm">Transaction sécurisée</span>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- MINI DEMO -->
+  <div class="text-center mt-12">
+    <button onclick="alert('❌ Fraude impossible ! Ce terrain est déjà sécurisé sur la blockchain.')"
+      class="bg-red-500 px-6 py-3 rounded-xl hover:scale-105 transition">
+      Tester une fraude 🚫
+    </button>
+  </div>
+
+</section>
+<!-- SECTION CURIOSITE BLOCKCHAIN -->
+<section class="max-w-6xl mx-auto px-6 py-20 mb-24">
+
+  <div class="bg-white/5 border border-gray-700 rounded-3xl p-10 shadow-2xl">
+
+    <!-- TITRE -->
+    <h2 class="text-4xl font-bold text-center mb-4">
+      🔗 Et si un terrain ne pouvait plus jamais être vendu deux fois ?
+    </h2>
+
+    <p class="text-center text-gray-400 max-w-3xl mx-auto mb-12 text-lg">
+      Imagine un système où chaque parcelle possède une identité numérique unique,
+      protégée par une technologie impossible à falsifier.
+      C’est exactement ce que permet la blockchain.
+    </p>
+
+    <!-- PETITE HISTOIRE -->
+    <div class="grid md:grid-cols-2 gap-8 items-center mb-14">
+
+      <div class="space-y-4">
+        <div class="bg-red-500/10 border border-red-500 rounded-2xl p-5">
+          <p class="text-red-300">
+            ❌ Avant : un même terrain pouvait être vendu à plusieurs personnes.
+          </p>
+        </div>
+
+        <div class="bg-green-500/10 border border-green-500 rounded-2xl p-5">
+          <p class="text-green-300">
+            ✅ Aujourd’hui : une seule transaction, une seule vérité.
+          </p>
+        </div>
+
+        <p class="text-gray-300 leading-7">
+          Chaque vente devient un <span class="text-green-400 font-bold">bloc sécurisé</span>,
+          relié au précédent.
+          Modifier une information ?
+          Presque impossible.
+        </p>
+      </div>
+
+      <!-- VISUEL RESEAU -->
+      <div class="flex justify-center items-center gap-4 flex-wrap">
+        <div class="bg-white/10 p-5 rounded-2xl w-40 text-center hover:scale-105 transition">
+          Bloc #01
+        </div>
+        <div class="text-green-400 text-3xl animate-pulse">➡️</div>
+        <div class="bg-white/10 p-5 rounded-2xl w-40 text-center hover:scale-105 transition">
+          Bloc #02
+        </div>
+        <div class="text-green-400 text-3xl animate-pulse">➡️</div>
+        <div class="bg-white/10 p-5 rounded-2xl w-40 text-center hover:scale-105 transition">
+          Bloc #03
+        </div>
+      </div>
+
+    </div>
+
+    <!-- APPEL A LA CURIOSITE -->
+    <div class="text-center">
+      <p class="text-xl text-gray-300 mb-6">
+        💡 Découvrez comment cette technologie peut transformer
+        le futur du foncier au Congo.
+      </p>
+
+      <button class="bg-green-500 px-8 py-4 rounded-xl text-lg hover:scale-105 transition shadow-lg">
+        Explorer la blockchain 🚀
+      </button>
+    </div>
+
+  </div>
+
+</section>
+</body>
+</html>
