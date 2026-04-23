@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>FoncierChain · Cadastre Blockchain Congo</title>
+    <!-- Tailwind + Fonts + Icons -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: #fafcf9; scroll-behavior: smooth; }
+        .hero-pattern {
+            background: radial-gradient(circle at 10% 20%, rgba(6, 78, 59, 0.03) 0%, transparent 30%),
+                        linear-gradient(145deg, #f4fbf7 0%, #e6f3ec 100%);
+        }
+        .glass-card {
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(16, 185, 129, 0.15);
+        }
+        .badge-blockchain {
+            background: linear-gradient(135deg, #064e3b, #065f46);
+            color: #d1fae5;
+            padding: 0.15rem 0.8rem;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            border: 1px solid #34d39940;
+        }
+        .tab-btn {
+            transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .tab-btn.active {
+            background: #0f766e !important;
+            color: white !important;
+            box-shadow: 0 8px 18px -6px rgba(15,118,110,0.4);
+            transform: scale(1.02);
+        }
+        .stat-number { font-feature-settings: "tnum"; }
+        .audit-log-container::-webkit-scrollbar { width: 6px; }
+        .audit-log-container::-webkit-scrollbar-track { background: #e2e8f0; border-radius: 10px; }
+        .audit-log-container::-webkit-scrollbar-thumb { background: #10b981; border-radius: 10px; }
+        
+        /* ----- ANIMATIONS MODERNES ----- */
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(24px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        @keyframes scaleIn {
+            0% { opacity: 0; transform: scale(0.94); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        @keyframes slideInLeft {
+            0% { opacity: 0; transform: translateX(-20px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideInRight {
+            0% { opacity: 0; transform: translateX(20px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes softPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .animate-on-scroll.fade-up { transform: translateY(30px); }
+        .animate-on-scroll.fade-in { transform: none; }
+        .animate-on-scroll.scale-in { transform: scale(0.92); }
+        .animate-on-scroll.slide-left { transform: translateX(-25px); }
+        .animate-on-scroll.slide-right { transform: translateX(25px); }
+        .animate-on-scroll.visible {
+            opacity: 1 !important;
+            transform: translate(0) scale(1) !important;
+        }
+
+        .delay-100 { transition-delay: 0.1s; }
+        .delay-200 { transition-delay: 0.2s; }
+        .delay-300 { transition-delay: 0.3s; }
+        .delay-400 { transition-delay: 0.4s; }
+        .delay-500 { transition-delay: 0.5s; }
+
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1);
+        }
+        .hover-lift:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 30px -10px rgba(2, 84, 59, 0.15);
+        }
+        .btn-pulse {
+            transition: all 0.2s;
+        }
+        .btn-pulse:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 20px -10px rgba(6, 95, 70, 0.3);
+        }
+        .card-glow {
+            transition: box-shadow 0.3s, transform 0.2s;
+        }
+        .card-glow:hover {
+            box-shadow: 0 0 0 2px rgba(16,185,129,0.15), 0 15px 25px -8px rgba(0,0,0,0.1);
+        }
+
+        .badge-pulse {
+            animation: softPulse 3s infinite ease-in-out;
+        }
+
+        .link-underline {
+            position: relative;
+        }
+        .link-underline::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #0f766e;
+            transition: width 0.3s ease;
+        }
+        .link-underline:hover::after {
+            width: 100%;
+        }
+
+        .dashboard-card {
+            transition: opacity 0.3s, transform 0.3s;
+        }
+        .prose-custom p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+    </style>
+</head>
+<body class="text-gray-800 antialiased">
+
+<!-- Navigation moderne -->
+<nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-emerald-100/60 shadow-sm animate-on-scroll fade-in visible">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16 md:h-20">
+            <div class="flex items-center gap-2">
+                <div class="bg-emerald-700 p-2 rounded-xl shadow-sm hover:scale-105 transition">
+                    <i class="fas fa-link text-white text-xl"></i>
+                </div>
+                <span class="text-2xl font-bold tracking-tight"><span class="text-gray-800">Foncier</span><span class="text-emerald-700">Chain</span></span>
+                <span class="badge-blockchain ml-3 hidden sm:inline-block badge-pulse">BLOCKCHAIN · CONGO</span>
+            </div>
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                <a href="#probleme" class="text-gray-600 hover:text-emerald-700 transition link-underline">Problème</a>
+                <a href="#solution" class="text-gray-600 hover:text-emerald-700 transition link-underline">Solution</a>
+                <a href="#verification" class="text-gray-600 hover:text-emerald-700 transition link-underline">Vérifier</a>
+                <a href="#professionnel" class="text-gray-600 hover:text-emerald-700 transition link-underline">Espace pro</a>
+                <a href="#impact" class="text-gray-600 hover:text-emerald-700 transition link-underline">Impact</a>
+                <a href="#professionnel" class="bg-emerald-700 text-white px-5 py-2.5 rounded-full text-sm font-semibold shadow-md hover:bg-emerald-800 transition btn-pulse">Accès notaire</a>
+            </div>
+            <button class="md:hidden text-emerald-800"><i class="fas fa-bars text-2xl"></i></button>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero section avec texte littéraire enrichi -->
+<section class="hero-pattern pt-16 pb-20 md:pt-20 md:pb-28 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="flex flex-col-reverse lg:flex-row items-center gap-12">
+            <div class="flex-1 text-center lg:text-left animate-on-scroll slide-left visible">
+                <div class="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-1.5 rounded-full shadow-sm border border-emerald-200 mb-6">
+                    <i class="fas fa-shield-alt text-emerald-600 text-sm"></i>
+                    <span class="text-sm font-semibold text-emerald-800">Registre immuable · La confiance par la preuve mathématique</span>
+                </div>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 leading-tight">
+                    La fin des <span class="text-emerald-700">doubles attributions</span> au Congo
+                </h1>
+                <p class="text-lg text-gray-600 max-w-xl mt-5 leading-relaxed">
+                    Imaginez un cadastre où chaque parcelle ne peut être enregistrée qu'une seule fois, où chaque transfert exige la preuve cryptographique du propriétaire et la validation d’un notaire assermenté. <strong>FoncierChain</strong> met la blockchain au service des Congolais : propriétaires, notaires, tribunaux et banques. Fini les litiges interminables, place à la transparence et à la valeur retrouvée des terres.
+                </p>
+                <div class="mt-8 flex flex-wrap gap-4 justify-center lg:justify-start">
+                    <a href="#verification" class="bg-emerald-700 hover:bg-emerald-800 text-white px-7 py-3.5 rounded-xl font-semibold shadow-lg shadow-emerald-200/50 transition btn-pulse flex items-center gap-2"><i class="fas fa-search"></i> Vérifier une parcelle</a>
+                    <a href="#professionnel" class="bg-white border border-emerald-300 text-emerald-800 hover:bg-emerald-50 px-7 py-3.5 rounded-xl font-semibold transition flex items-center gap-2 btn-pulse"><i class="fas fa-user-check"></i> Espace agent/notaire</a>
+                </div>
+                <div class="mt-6 text-sm text-gray-500 flex items-center gap-4 justify-center lg:justify-start">
+                    <span><i class="far fa-check-circle text-emerald-600"></i> Déjà 3 200+ parcelles sécurisées</span>
+                    <span><i class="far fa-clock text-emerald-600"></i> Zéro litige enregistré depuis le déploiement</span>
+                </div>
+            </div>
+            <div class="flex-1 flex justify-center animate-on-scroll slide-right visible">
+                <div class="relative w-full max-w-md">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-emerald-400 to-teal-400 rounded-3xl blur-2xl opacity-20"></div>
+                    <div class="relative glass-card rounded-3xl p-6 shadow-2xl border border-white/40 hover-lift">
+                        <div class="flex items-center gap-2 text-emerald-800 mb-3"><i class="fas fa-cube text-xl"></i><span class="font-bold">Dernier bloc cadastral</span></div>
+                        <div class="font-mono text-sm bg-white/70 p-4 rounded-xl border border-emerald-100">
+                            <div class="flex justify-between"><span>Hash :</span><span class="text-emerald-700 font-semibold">0x7a3f...c9e2</span></div>
+                            <div class="flex justify-between mt-2"><span>Parcelle :</span><span>CG-BZV-210</span></div>
+                            <div class="flex justify-between"><span>Propriétaire :</span><span>MASSAMBA J.</span></div>
+                            <div class="flex justify-between text-emerald-700 mt-2"><span>⛓️ Validé par :</span><span>Notaire N°CONGO-07</span></div>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-3 text-center"><i class="far fa-clock"></i> Mise à jour il y a 8 secondes — infalsifiable</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Chiffres clés avec légendes explicatives -->
+<section class="bg-white border-y border-emerald-100 py-8">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+            <div class="animate-on-scroll fade-up delay-100">
+                <span class="stat-number block text-4xl font-black text-emerald-700">60%</span>
+                <span class="text-sm uppercase tracking-wider text-gray-500">de terrains contestés</span>
+                <p class="text-xs text-gray-400 mt-1">à Brazzaville et Pointe-Noire (source MCAF)</p>
+            </div>
+            <div class="animate-on-scroll fade-up delay-200">
+                <span class="stat-number block text-4xl font-black text-emerald-700">45%</span>
+                <span class="text-sm uppercase tracking-wider text-gray-500">des litiges civils</span>
+                <p class="text-xs text-gray-400 mt-1">liés au foncier devant les tribunaux</p>
+            </div>
+            <div class="animate-on-scroll fade-up delay-300">
+                <span class="stat-number block text-4xl font-black text-emerald-700">0</span>
+                <span class="text-sm uppercase tracking-wider text-gray-500">double attribution</span>
+                <p class="text-xs text-gray-400 mt-1">grâce à l'unicité garantie par la blockchain</p>
+            </div>
+            <div class="animate-on-scroll fade-up delay-400">
+                <span class="stat-number block text-4xl font-black text-emerald-700">100%</span>
+                <span class="text-sm uppercase tracking-wider text-gray-500">traçabilité</span>
+                <p class="text-xs text-gray-400 mt-1">historique complet de chaque parcelle</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section "Problème / Solution" avec descriptions littéraires par utilisateur -->
+<section id="probleme" class="py-20 bg-gray-50/80">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-3xl mx-auto mb-14 animate-on-scroll fade-in">
+            <span class="text-emerald-600 font-semibold tracking-wider text-sm">CONÇU POUR CHAQUE ACTEUR DU FONCIER</span>
+            <h2 class="text-3xl md:text-4xl font-bold mt-2 text-gray-900">Propriétaires, notaires, tribunaux, banques</h2>
+            <p class="text-gray-600 mt-4 text-lg">Une même vérité partagée, vérifiable par tous, modifiable par personne sans consensus. Voici comment FoncierChain transforme votre quotidien.</p>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Propriétaires -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover-lift card-glow animate-on-scroll scale-in delay-100">
+                <div class="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mb-4"><i class="fas fa-home text-emerald-700 text-xl"></i></div>
+                <h3 class="font-bold text-lg">Propriétaires fonciers</h3>
+                <p class="text-gray-600 text-sm mt-2 leading-relaxed">Vous possédez un terrain à Brazzaville ou Pointe-Noire ? Vérifiez en quelques secondes que votre titre est bien enregistré et qu'aucun double n'existe. Utilisez votre bien comme garantie bancaire sans crainte de contestation. Votre propriété est gravée dans une chaîne de blocs inviolable.</p>
+            </div>
+            <!-- Notaires & Agents -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover-lift card-glow animate-on-scroll scale-in delay-200">
+                <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4"><i class="fas fa-gavel text-blue-700 text-xl"></i></div>
+                <h3 class="font-bold text-lg">Notaires & Agents fonciers</h3>
+                <p class="text-gray-600 text-sm mt-2 leading-relaxed">Enregistrez une parcelle une seule fois, avec la certitude qu'elle n'existe nulle part ailleurs. Chaque transfert exige votre validation notariale en plus de la signature cryptographique du propriétaire. Vous disposez d'un journal d'audit complet et d'un tableau de bord professionnel pour suivre toutes les mutations.</p>
+            </div>
+            <!-- Tribunaux -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover-lift card-glow animate-on-scroll scale-in delay-300">
+                <div class="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center mb-4"><i class="fas fa-scale-balanced text-amber-700 text-xl"></i></div>
+                <h3 class="font-bold text-lg">Tribunaux civils</h3>
+                <p class="text-gray-600 text-sm mt-2 leading-relaxed">Les litiges fonciers encombrent les cours et tribunaux. Avec FoncierChain, la preuve de propriété est mathématique et horodatée. Accédez à l'historique complet d'une parcelle pour trancher un conflit en quelques minutes. La double attribution devient techniquement impossible, réduisant drastiquement le contentieux.</p>
+            </div>
+            <!-- Banques -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover-lift card-glow animate-on-scroll scale-in delay-400">
+                <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-4"><i class="fas fa-building-columns text-purple-700 text-xl"></i></div>
+                <h3 class="font-bold text-lg">Banques & Crédit</h3>
+                <p class="text-gray-600 text-sm mt-2 leading-relaxed">Accordez des prêts hypothécaires en toute confiance. Vérifiez instantanément la propriété et l'absence de charges. La garantie est réelle, liquide et incontestable. Vous participez à l'inclusion financière des ménages congolais en transformant un titre foncier en actif bancable.</p>
+            </div>
+        </div>
+        <div class="mt-10 text-center text-gray-500 text-sm italic max-w-3xl mx-auto">
+            <i class="fas fa-landmark mr-1"></i> Ministère des Affaires Foncières du Congo : une infrastructure nationale souveraine, transparente et ouverte à tous les acteurs agréés.
+        </div>
+    </div>
+</section>
+
+<!-- Section Vérification citoyenne (explicative et littéraire) -->
+<section id="verification" class="py-20 bg-white">
+    <div class="max-w-5xl mx-auto px-6">
+        <div class="text-center mb-10 animate-on-scroll fade-up">
+            <span class="bg-emerald-100 text-emerald-800 text-sm font-semibold px-4 py-1.5 rounded-full">🔎 VÉRIFICATION INSTANTANÉE · POUR TOUS</span>
+            <h2 class="text-3xl md:text-4xl font-bold mt-4">Qui est le propriétaire légal ?</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto mt-3 text-base">Nul besoin d'être expert. Saisissez un identifiant de parcelle ou une adresse. En une fraction de seconde, le registre blockchain vous révèle le propriétaire actuel et tout l'historique des transmissions. C'est gratuit, ouvert à tous les citoyens, et infalsifiable.</p>
+        </div>
+        <div class="bg-gray-50/80 p-6 md:p-8 rounded-3xl border border-emerald-100 shadow-sm animate-on-scroll scale-in">
+            <div class="flex flex-col sm:flex-row gap-3">
+                <input type="text" id="searchInput" placeholder="Ex: CG-BZV-001 ou Moungali" class="flex-1 border border-gray-200 rounded-xl p-4 bg-white shadow-sm focus:ring-2 focus:ring-emerald-300 outline-none transition">
+                <button id="verifyBtn" class="bg-emerald-700 hover:bg-emerald-800 text-white px-8 py-4 rounded-xl font-bold shadow-md flex items-center justify-center gap-2 transition btn-pulse"><i class="fas fa-search"></i> Vérifier</button>
+            </div>
+            <div id="verifyResult" class="mt-6 hidden transition-all duration-500"></div>
+            <div id="verifyEmpty" class="text-gray-400 text-center mt-6 text-sm italic">« Le savoir est la première des sécurités. » Entrez une référence pour débuter.</div>
+        </div>
+        <p class="text-xs text-gray-400 text-center mt-4">La vérification ne nécessite aucune connexion. Toute consultation est anonyme et n'altère pas le registre.</p>
+    </div>
+</section>
+
+<!-- Espace professionnel avec textes enrichis -->
+<section id="professionnel" class="py-20 bg-gradient-to-b from-emerald-50/50 to-white">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-8 animate-on-scroll fade-in">
+            <span class="bg-emerald-800 text-emerald-100 text-xs font-bold px-5 py-1.5 rounded-full tracking-wider">🏛️ ESPACE RÉSERVÉ · NOTAIRES & AGENTS ASSERMENTÉS</span>
+            <h2 class="text-3xl md:text-4xl font-bold mt-3 text-gray-900">Gestion avancée · double validation cryptographique</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">Interface professionnelle pour enregistrer des parcelles, valider des transferts avec double facteur, et consulter le journal d'audit immuable.</p>
+        </div>
+
+        <!-- Tabs navigation -->
+        <div class="flex justify-center gap-3 mb-10 flex-wrap">
+            <button id="tabEnreg" class="tab-btn active px-6 py-3 rounded-full font-semibold text-sm shadow-sm border transition bg-white text-gray-700 border-gray-200 hover:bg-emerald-50"><i class="fas fa-plus-circle mr-2"></i>Enregistrer une parcelle</button>
+            <button id="tabTransfert" class="tab-btn px-6 py-3 rounded-full font-semibold text-sm shadow-sm border transition bg-white text-gray-700 border-gray-200 hover:bg-emerald-50"><i class="fas fa-arrow-right-arrow-left mr-2"></i>Transfert sécurisé (2FA)</button>
+            <button id="tabDashboard" class="tab-btn px-6 py-3 rounded-full font-semibold text-sm shadow-sm border transition bg-white text-gray-700 border-gray-200 hover:bg-emerald-50"><i class="fas fa-chart-pie mr-2"></i>Dashboard & Audit</button>
+        </div>
+
+        <!-- Panneau Enregistrement -->
+        <div id="panelEnreg" class="bg-white p-6 md:p-8 rounded-3xl shadow-xl border border-gray-100 max-w-3xl mx-auto dashboard-card animate-on-scroll scale-in visible">
+            <h3 class="text-2xl font-bold flex items-center gap-2"><i class="fas fa-cube text-emerald-600"></i> Nouvelle parcelle sur la blockchain nationale</h3>
+            <p class="text-gray-600 text-sm mb-6 leading-relaxed">L'enregistrement est définitif et unique. L'identifiant de parcelle est vérifié en temps réel : s'il existe déjà, l'opération est rejetée. Toutes les informations sont horodatées et signées numériquement.</p>
+            <div class="grid sm:grid-cols-2 gap-4">
+                <input type="text" id="regId" placeholder="ID unique (ex: CG-BZV-099)" class="border p-3 rounded-xl bg-gray-50 focus:ring-2 focus:ring-emerald-200 transition">
+                <input type="text" id="regAdresse" placeholder="Adresse / Quartier" class="border p-3 rounded-xl bg-gray-50 focus:ring-2 focus:ring-emerald-200 transition">
+                <input type="text" id="regProprio" placeholder="Nom complet du propriétaire" class="border p-3 rounded-xl bg-gray-50 focus:ring-2 focus:ring-emerald-200 transition">
+                <input type="number" id="regSuperficie" placeholder="Superficie (m²)" class="border p-3 rounded-xl bg-gray-50 focus:ring-2 focus:ring-emerald-200 transition">
+            </div>
+            <button id="submitRegisterBtn" class="mt-6 w-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-3.5 rounded-xl shadow-md transition btn-pulse"><i class="fas fa-link mr-2"></i>Enregistrer sur la blockchain</button>
+            <div id="regFeedback" class="mt-4 text-sm font-medium"></div>
+            <p class="text-xs text-gray-400 mt-4">Un reçu horodaté sera généré et ajouté au journal d'audit.</p>
+        </div>
+
+        <!-- Panneau Transfert -->
+        <div id="panelTransfert" class="bg-white p-6 md:p-8 rounded-3xl shadow-xl border border-gray-100 max-w-3xl mx-auto hidden dashboard-card">
+            <h3 class="text-2xl font-bold flex items-center gap-2"><i class="fas fa-lock text-blue-600"></i> Transfert de propriété avec double validation</h3>
+            <p class="text-gray-600 text-sm mb-4">Pour qu'un transfert soit accepté, deux conditions doivent être remplies : la signature cryptographique du propriétaire actuel (simulée ici par "sign_valid") et le code notarial officiel ("NOT-2026"). Cette double vérification garantit l'intégrité absolue du registre.</p>
+            <div class="space-y-5 mt-4">
+                <input type="text" id="transferId" placeholder="ID Parcelle à transférer" class="w-full border p-3 rounded-xl bg-gray-50 focus:ring-2 focus:ring-blue-200 transition">
+                <input type="text" id="newOwner" placeholder="Nom complet du nouveau propriétaire" class="w-full border p-3 rounded-xl bg-gray-50 focus:ring-2 focus:ring-blue-200 transition">
+                <div class="bg-amber-50/70 p-5 rounded-xl border border-amber-200">
+                    <label class="font-bold flex gap-2"><i class="fas fa-key"></i>Validation propriétaire (signature crypto)</label>
+                    <input type="text" id="cryptoSignature" placeholder="sign_valid" class="mt-2 w-full border p-3 rounded-lg">
+                    <p class="text-xs text-gray-500 mt-1">Simulation : utilisez "sign_valid" pour une signature valide.</p>
+                </div>
+                <div class="bg-blue-50/70 p-5 rounded-xl border border-blue-200">
+                    <label class="font-bold flex gap-2"><i class="fas fa-user-tie"></i>Validation notariale (code officiel)</label>
+                    <input type="text" id="notaireCode" placeholder="NOT-2026" class="mt-2 w-full border p-3 rounded-lg">
+                    <p class="text-xs text-gray-500 mt-1">Code notaire requis : "NOT-2026" pour validation.</p>
+                </div>
+                <button id="transferSubmitBtn" class="w-full bg-blue-700 hover:bg-blue-800 text-white font-bold py-3.5 rounded-xl shadow btn-pulse"><i class="fas fa-check-double mr-2"></i>Exécuter le transfert (2FA)</button>
+            </div>
+            <div id="transferFeedback" class="mt-4 text-sm font-medium"></div>
+        </div>
+
+        <!-- Panneau Dashboard -->
+        <div id="panelDashboard" class="bg-white p-6 md:p-8 rounded-3xl shadow-xl border border-gray-100 max-w-5xl mx-auto hidden dashboard-card">
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-emerald-50 p-5 rounded-2xl"><span class="text-gray-600 text-sm uppercase tracking-wide">📦 Parcelles enregistrées</span><div class="text-4xl font-black text-emerald-800 mt-1" id="totalParcellesStat">0</div><p class="text-xs text-gray-500 mt-1">dans le registre blockchain</p></div>
+                <div class="bg-blue-50 p-5 rounded-2xl"><span class="text-gray-600 text-sm uppercase tracking-wide">🔄 Transferts effectués</span><div class="text-4xl font-black text-blue-800 mt-1" id="totalTransfersStat">0</div><p class="text-xs text-gray-500 mt-1">mutations validées</p></div>
+            </div>
+            <div class="grid lg:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="font-bold text-lg flex items-center gap-2"><i class="fas fa-history text-gray-500"></i>Journal d'audit immuable</h4>
+                    <p class="text-xs text-gray-400 mb-2">Chaque action est horodatée et ne peut être modifiée.</p>
+                    <div id="auditLogContainer" class="audit-log-container bg-gray-50 p-4 rounded-xl border h-64 overflow-y-auto text-sm font-mono"></div>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg flex items-center gap-2"><i class="fas fa-receipt text-gray-500"></i>Derniers reçus blockchain</h4>
+                    <div id="receiptsContainer" class="space-y-2 max-h-64 overflow-y-auto"></div>
+                </div>
+            </div>
+        </div>
+        <p class="text-center text-gray-500 text-xs mt-8">Ministère des Affaires Foncières · Interface sécurisée réservée aux professionnels habilités.</p>
+    </div>
+</section>
+
+<!-- Section Impact & Pensées profondes -->
+<section id="impact" class="py-20 bg-gradient-to-br from-emerald-900 to-teal-900 text-white">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+        <i class="fas fa-seedling text-6xl text-emerald-300 mb-4 animate-on-scroll fade-up"></i>
+        <h2 class="text-3xl md:text-4xl font-bold animate-on-scroll fade-up delay-100">Une renaissance foncière pour le Congo</h2>
+        <div class="max-w-3xl mx-auto mt-6 animate-on-scroll fade-in delay-200 prose-custom">
+            <p class="text-xl italic font-light leading-relaxed">« La blockchain ne se contente pas de sécuriser des données : elle restaure la confiance là où la parole écrite a été brisée. Au Congo, le foncier est un pilier de la paix sociale et du développement économique. Avec FoncierChain, nous posons la première pierre d'un avenir où chaque Congolais peut prouver sa propriété sans crainte, où les banques prêtent en confiance, et où les tribunaux tranchent avec certitude. »</p>
+            <p class="text-emerald-200 text-base mt-4">— Vision portée par le Ministère des Affaires Foncières et Darollo Technologies.</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10">
+                <div class="bg-white/10 p-5 rounded-xl backdrop-blur-sm hover:bg-white/20 transition">
+                    <i class="fas fa-ban text-2xl mb-2"></i>
+                    <p class="font-semibold">Double attribution impossible</p>
+                    <p class="text-xs opacity-80 mt-1">grâce à l'unicité garantie par consensus</p>
+                </div>
+                <div class="bg-white/10 p-5 rounded-xl backdrop-blur-sm hover:bg-white/20 transition">
+                    <i class="fas fa-gavel text-2xl mb-2"></i>
+                    <p class="font-semibold">Litiges disparaissent</p>
+                    <p class="text-xs opacity-80 mt-1">réduction drastique des contentieux</p>
+                </div>
+                <div class="bg-white/10 p-5 rounded-xl backdrop-blur-sm hover:bg-white/20 transition">
+                    <i class="fas fa-hand-holding-dollar text-2xl mb-2"></i>
+                    <p class="font-semibold">Accès au crédit</p>
+                    <p class="text-xs opacity-80 mt-1">des ménages peuvent hypothéquer leur terrain</p>
+                </div>
+                <div class="bg-white/10 p-5 rounded-xl backdrop-blur-sm hover:bg-white/20 transition">
+                    <i class="fas fa-eye text-2xl mb-2"></i>
+                    <p class="font-semibold">Confiance restaurée</p>
+                    <p class="text-xs opacity-80 mt-1">transparence totale pour tous les acteurs</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="bg-gray-900 text-gray-300 py-8 text-sm">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
+        <div class="flex items-center gap-2">
+            <i class="fas fa-link text-emerald-400"></i>
+            <span class="font-bold text-white">FoncierChain</span>
+            <span class="text-xs ml-2 bg-gray-800 px-3 py-1 rounded-full">Ministère des Affaires Foncières · République du Congo</span>
+        </div>
+        <p class="mt-4 md:mt-0">© 2026 — Registre blockchain national. Tous droits réservés. Développé par Darollo Technologies.</p>
+    </div>
+</footer>
+
+<script>
+    (function(){
+        // --- DATA ---
+        let blockchainParcelles = [];
+        let auditLogs = [];
+        function loadData() {
+            const stored = localStorage.getItem("my_blockchain_foncier");
+            const storedAudit = localStorage.getItem("foncierchain_audit");
+            if(stored) blockchainParcelles = JSON.parse(stored);
+            else blockchainParcelles = [
+                { id: "CG-BZV-001", adresse: "Moungali, Brazzaville", proprietaire: "Mbemba Alex", superficie: 450, timestamp: Date.now()-86400000*90, historique: [{ proprietaire: "Mbemba Alex", date: "2025-01-10" }] },
+                { id: "CG-BZV-002", adresse: "Makélékélé", proprietaire: "Sarl Congo Habitat", superficie: 1200, timestamp: Date.now()-86400000*45, historique: [{ proprietaire: "Sarl Congo Habitat", date: "2025-02-20" }] },
+                { id: "CG-PNR-010", adresse: "Pointe-Noire, Centre", proprietaire: "Christine Nkala", superficie: 600, timestamp: Date.now()-86400000*20, historique: [{ proprietaire: "Christine Nkala", date: "2025-03-01" }] }
+            ];
+            if(storedAudit) auditLogs = JSON.parse(storedAudit);
+            else auditLogs = [];
+            if(auditLogs.length===0) addAuditLog("INIT", "Système", "Blockchain initialisée avec parcelles de démonstration.");
+            updateStatsAndAudit();
+        }
+        function saveParcels(){ localStorage.setItem("my_blockchain_foncier", JSON.stringify(blockchainParcelles)); }
+        function saveAudit(){ localStorage.setItem("foncierchain_audit", JSON.stringify(auditLogs)); }
+        function addAuditLog(type, acteur, details){
+            auditLogs.unshift({ id: Date.now()+'-'+Math.random().toString(36), type, acteur, details, timestamp: new Date().toLocaleString() });
+            if(auditLogs.length>50) auditLogs.pop();
+            saveAudit(); updateStatsAndAudit();
+        }
+        function updateStatsAndAudit(){
+            document.getElementById("totalParcellesStat") && (document.getElementById("totalParcellesStat").innerText = blockchainParcelles.length);
+            document.getElementById("totalTransfersStat") && (document.getElementById("totalTransfersStat").innerText = auditLogs.filter(l=>l.type==='TRANSFERT').length);
+            const container = document.getElementById("auditLogContainer");
+            if(container) container.innerHTML = auditLogs.slice(0,15).map(l=>`<div class="border-b py-1 text-xs"><span class="font-bold text-emerald-700">[${l.timestamp}]</span> ${l.type} - ${l.details}</div>`).join('') || '<div class="text-gray-400">Aucun log</div>';
+            const receipts = document.getElementById("receiptsContainer");
+            if(receipts) receipts.innerHTML = auditLogs.slice(0,6).map(l=>`<div class="bg-gray-100 p-3 rounded text-xs font-mono"><i class="fas fa-receipt text-emerald-600"></i> <strong>${l.type}</strong> ${l.details}<br><span class="text-gray-500">${l.timestamp}</span></div>`).join('');
+        }
+
+        function registerParcel(id, adr, proprio, sup){
+            if(!id||!adr||!proprio||!sup) return "❌ Tous les champs requis.";
+            if(blockchainParcelles.find(p=>p.id.toLowerCase()===id.toLowerCase())) {
+                addAuditLog("DOUBLE_REJET", "Agent", `Tentative rejetée : ${id} existe déjà.`);
+                return `⛔ REJETÉ : parcelle ${id} déjà enregistrée. Double attribution impossible.`;
+            }
+            const p = { id: id.trim(), adresse: adr.trim(), proprietaire: proprio.trim(), superficie: parseFloat(sup), timestamp: Date.now(), historique: [{ proprietaire: proprio.trim(), date: new Date().toLocaleDateString() }] };
+            blockchainParcelles.push(p); saveParcels();
+            addAuditLog("ENREGISTREMENT", "Agent", `${id} → ${proprio}, ${sup}m²`);
+            return `✅ Parcelle ${id} enregistrée avec succès sur la blockchain.`;
+        }
+
+        function transferAdvanced(parcelId, newOwner, crypto, notaire){
+            const p = blockchainParcelles.find(px=>px.id.toLowerCase()===parcelId.toLowerCase());
+            if(!p) return `❌ Parcelle introuvable.`;
+            if(crypto !== "sign_valid") { addAuditLog("ECHEC_CRYPTO", "Notaire", `Signature invalide pour ${parcelId}`); return `🔐 Échec signature crypto. Utilisez "sign_valid".`; }
+            if(notaire !== "NOT-2026") { addAuditLog("ECHEC_NOTAIRE", "Notaire", `Code notaire erroné`); return `📜 Code notaire incorrect. Utilisez "NOT-2026".`; }
+            const old = p.proprietaire;
+            if(!p.historique) p.historique = [];
+            p.historique.push({ proprietaire: old, date: new Date().toLocaleDateString() });
+            p.proprietaire = newOwner.trim(); p.timestamp = Date.now(); saveParcels();
+            addAuditLog("TRANSFERT", "Notaire", `${parcelId} : ${old} → ${newOwner} (2FA validé)`);
+            return `🔁 Transfert validé : ${parcelId} ➔ ${newOwner}. Historique mis à jour.`;
+        }
+
+        function verifyParcel(q){
+            if(!q) return null;
+            return blockchainParcelles.find(p=>p.id.toLowerCase()===q.toLowerCase() || p.adresse.toLowerCase().includes(q.toLowerCase()));
+        }
+
+        function initScrollAnimations() {
+            const animatedElements = document.querySelectorAll('.animate-on-scroll:not(.visible)');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { if(entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } });
+            }, { threshold: 0.15, rootMargin: '0px 0px -20px 0px' });
+            animatedElements.forEach(el => observer.observe(el));
+        }
+
+        document.addEventListener("DOMContentLoaded", ()=>{
+            loadData();
+            initScrollAnimations();
+            
+            const panelEnreg = document.getElementById("panelEnreg"), panelTransfert = document.getElementById("panelTransfert"), panelDashboard = document.getElementById("panelDashboard");
+            const tabs = document.querySelectorAll('.tab-btn');
+            function setActiveTab(activeId){
+                tabs.forEach(btn=>{ btn.classList.remove('active','bg-emerald-700','text-white'); btn.classList.add('bg-white','text-gray-700','border-gray-200'); });
+                const activeBtn = document.getElementById(activeId);
+                activeBtn.classList.add('active','bg-emerald-700','text-white');
+                panelEnreg.classList.add('hidden'); panelTransfert.classList.add('hidden'); panelDashboard.classList.add('hidden');
+                if(activeId==='tabEnreg') panelEnreg.classList.remove('hidden');
+                else if(activeId==='tabTransfert') panelTransfert.classList.remove('hidden');
+                else if(activeId==='tabDashboard') { panelDashboard.classList.remove('hidden'); updateStatsAndAudit(); }
+            }
+            document.getElementById('tabEnreg').addEventListener('click', ()=>setActiveTab('tabEnreg'));
+            document.getElementById('tabTransfert').addEventListener('click', ()=>setActiveTab('tabTransfert'));
+            document.getElementById('tabDashboard').addEventListener('click', ()=>setActiveTab('tabDashboard'));
+
+            document.getElementById('submitRegisterBtn').addEventListener('click', ()=>{
+                const msg = registerParcel(document.getElementById('regId').value, document.getElementById('regAdresse').value, document.getElementById('regProprio').value, document.getElementById('regSuperficie').value);
+                const fb = document.getElementById('regFeedback');
+                fb.innerHTML = `<span class="${msg.includes('✅')?'text-green-700':'text-red-600'}">${msg}</span>`;
+                if(msg.includes('✅')) ['regId','regAdresse','regProprio','regSuperficie'].forEach(id=>document.getElementById(id).value='');
+                setTimeout(()=>fb.innerHTML='',4000);
+            });
+            document.getElementById('transferSubmitBtn').addEventListener('click', ()=>{
+                const res = transferAdvanced(document.getElementById('transferId').value, document.getElementById('newOwner').value, document.getElementById('cryptoSignature').value, document.getElementById('notaireCode').value);
+                const fb = document.getElementById('transferFeedback');
+                fb.innerHTML = `<span class="${res.includes('validé')?'text-green-700':'text-red-600'}">${res}</span>`;
+                if(res.includes('validé')) ['transferId','newOwner','cryptoSignature','notaireCode'].forEach(id=>document.getElementById(id).value='');
+                setTimeout(()=>fb.innerHTML='',4000);
+            });
+            document.getElementById('verifyBtn').addEventListener('click', ()=>{
+                const q = document.getElementById('searchInput').value;
+                const resDiv = document.getElementById('verifyResult'), empty=document.getElementById('verifyEmpty');
+                const found = verifyParcel(q);
+                if(found){
+                    empty.classList.add('hidden'); resDiv.classList.remove('hidden');
+                    let hist = found.historique ? found.historique.map(h=>`<li class="ml-4 list-disc">📌 ${h.proprietaire} (${h.date})</li>`).join('') : '';
+                    resDiv.innerHTML = `<div class="bg-white p-5 rounded-xl border-l-4 border-emerald-600 shadow"><p class="font-bold text-lg">${found.id} · ${found.adresse}</p><p class="text-2xl font-black text-emerald-800">${found.proprietaire}</p><p>Superficie: ${found.superficie} m²</p><div class="mt-3"><span class="font-semibold">Historique des propriétaires:</span><ul class="text-sm mt-1">${hist}</ul></div><p class="text-xs text-gray-400 mt-3">Source : registre blockchain FoncierChain</p></div>`;
+                } else { empty.classList.remove('hidden'); resDiv.classList.add('hidden'); }
+            });
+
+            window.addEventListener('load', ()=> {
+                document.querySelectorAll('.animate-on-scroll').forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    if(rect.top < window.innerHeight-50 && rect.bottom > 0) el.classList.add('visible');
+                });
+            });
+        });
+    })();
+</script>
+</body>
+</html>
