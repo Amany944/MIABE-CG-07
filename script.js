@@ -1,24 +1,21 @@
 const menuBtn = document.getElementById("menuBtn");
 const mobileMenu = document.getElementById("mobileMenu");
+const nav = document.getElementById("mainNav");
 
 menuBtn.addEventListener("click", () => {
 
     const isHidden = mobileMenu.classList.contains("hidden");
 
-    // 🔼 Scroll seulement si on ouvre le menu
-    if (isHidden) {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
+    // 👉 seulement sur mobile
+    if (window.innerWidth < 768) {
+
+        // 🔼 Aller EXACTEMENT au menu
+        nav.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
         });
-
-        // attendre la fin du scroll
-        setTimeout(() => {
-            mobileMenu.classList.remove("hidden");
-        }, 300);
-
-    } else {
-        // fermer directement
-        mobileMenu.classList.add("hidden");
     }
+
+    // 👉 toggle menu
+    mobileMenu.classList.toggle("hidden");
 });
